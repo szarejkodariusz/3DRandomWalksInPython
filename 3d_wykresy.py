@@ -6,9 +6,9 @@ import numpy.random as npr
 import numpy as np
 
 
-#Liczba korkow
+# Number of steps
 n_steps = 100
-#Liczba drog
+# Number of random walks
 n_walks = 10
 
 walks_x = [[0] * n_steps for i in range(n_walks)]
@@ -23,23 +23,23 @@ y2ave = [0.0] * n_steps
 z2ave = [0.0] * n_steps
 r2ave = [0.0] * n_steps
 
-#Generacja bladzenia losowego
+# Generate random walk
 for i in range(0, n_walks):
 	x = 0
 	y = 0
 	z = 0
 	for j in range(0, n_steps):
-		# Wektor liczb losowych
+		# Array of random number
 		rnd = npr.random(3)-0.5
-		# Unormuj
+		# Norm array
 		norm = np.linalg.norm(rnd)
 		rnd = rnd / norm
 		x = rnd[0] + x
 		y = rnd[1] + y
 		z = rnd[2] + z
 
-		# Poniewaz <x> = 0 warjancje mozemy
-		# liczyc w nastepujacy sposob:
+		# <x> = 0 so variance can 
+		# be calculated in the following way:
 		x2ave[j] = x2ave[j] + x**2;
 		y2ave[j] = y2ave[j] + y**2;
 		z2ave[j] = z2ave[j] + z**2;
@@ -60,9 +60,9 @@ ax = fig.gca(projection='3d')
 
 for i in range(0,n_walks):
 	ax.plot(walks_x[i], walks_y[i], walks_z[i], label='Random walk')
-	ax.scatter(walks_x[i][-1], walks_y[i][-1], walks_z[i][-1], c='b', marker='o') # PUNKT KONCOWY
+	ax.scatter(walks_x[i][-1], walks_y[i][-1], walks_z[i][-1], c='b', marker='o') # Ploting final point
 
-# Rysowanie
+# Plot
 plt.xlabel('x')
 plt.ylabel('y')
 #plt.zlabel('z')
